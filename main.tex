@@ -1,45 +1,149 @@
-%nieco jasdjadja sdabsd asdasdja
-
-\documentclass{article}
+% main.tex — Predbežná verzia MIP (AI a trh práce v EÚ)
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 \usepackage[slovak]{babel}
-\usepackage{amsmath}
+\usepackage{amsmath, amssymb}
 \usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{siunitx}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{csquotes}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{url}
 
 \title{Analýza dopadu umelej inteligencie na trh práce v Európskej únii}
-\author{
-Jakub Šroba xsroba@stuba.sk \\
-\and
-Samuel Škombár xskombar@stuba.sk \\ 
-\and
-Bruno Stehlík xstehlik@stuba.sk \\ 
-\and
-Adam Sklenčík xsklencik@stuba.sk \\ 
+\author{%
+Jakub Šroba \texttt{xsroba@stuba.sk} \and
+Samuel Škombár \texttt{xskombar@stuba.sk} \and
+Bruno Stehlík \texttt{xstehlik@stuba.sk} \and
+Adam Sklenčík \texttt{xsklencik@stuba.sk}
 }
+\date{\today}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Rozvoj umelej inteligencie prináša nové možnosti pre ľudí pôsobiacich v oblasti IT. Vznikajú nové profesie. Firmy majú prístup k nástrojom, ktoré dokážu automatizovať rutinné úlohy alebo zlepšiť efektivitu procesov.
-
-Na druhej strane však tento technologický pokrok vedie k úpadku určitých pracovných pozícií, najmä tých, ktoré sú ľahko automatizovateľné. Naším cieľom je vytvoriť prehľadný portál pre vizualizáciu zmeny pracovného trhu v EÚ v súvislosti s rozvojom AI.
-
-Analyzovať, či dané odvetvia rastú alebo klesajú práve kvôli AI a automatizácii, a poskytovať interaktívne grafy, datasety a doplnkové analýzy pre tvorcov politík, výskumníkov a verejnosť.
-
+TOTO JE KONCEPT:\newline
+Rozvoj umelej inteligencie (AI) vytvára nové pracovné príležitosti, zároveň však zrýchľuje
+automatizáciu rutinných činností a zmeny v štruktúre dopytu po zručnostiach. Tento dokument
+predstavuje \emph{predbežnú verziu} projektu, ktorého cieľom je zostrojiť otvorený analytický
+pipeline pre zber, čistenie a porovnávaciu analýzu dát o pracovných ponukách a štatistikách
+trhu práce v krajinách EÚ. Budeme kombinovať API ponúk práce (Adzuna) s oficiálnymi
+štatistikami (Eurostat, OECD) a vizualizovať trendy rozvoja AI-profesií, podielu ICT
+špecialistov a indikátorov automatizácie. Výstupom bude interaktívny dataset a grafy
+(Power BI/Plotly) vhodné pre študentov, výskumníkov a tvorcov politík.
 \end{abstract}
 
 \section{Úvod}
+Vplyv AI na trh práce je predmetom intenzívnej diskusie. Popri náraste dopytu po profesionáloch
+v oblasti strojového učenia a dátovej vedy sa očakáva \cite{FreyOsborne2017,AcemogluRestrepo2018,OECD2019}
+aj preskupovanie pracovných miest v dôsledku automatizácie, najmä v rutinných a opakovateľných
+profesiách. Cieľom tohto projektu je empiricky zmapovať \emph{vývoj ponúk práce súvisiacich s AI}
+a \emph{kontextové ukazovatele} (napr. podiel ICT špecialistov) v rámci EÚ a poskytnúť
+prehľadné vizualizácie trendov.
 
-Your introduction goes here! Simply start writing your document and use the Recompile button to view the updated PDF preview. Examples of commonly used commands and features are listed below, to help you get started.
+\section{Ciele a výskumné otázky}
+\subsection*{Hlavný cieľ}
+Vytvoriť dátový pipeline a vizualizačný portál, ktorý umožní porovnať vývoj AI a non-AI
+pracovných ponúk v EÚ v rokoch 2023–2025 a zasadiť ich do kontextu štatistík trhu práce.
+\subsection*{Výskumné otázky}
+\begin{enumerate}
+  \item Ako sa mení počet a podiel \textit{AI-príbuzných} pracovných ponúk medzi krajinami EÚ a v čase?
+  \item Existuje súvis medzi intenzitou AI ponúk a podielom ICT špecialistov v krajine?
+  \item Líšia sa trendy medzi sektormi/profesijnými skupinami?
+  \item Aké limity a skreslenia vyplývajú z dostupných dát a definícií?
+\end{enumerate}
 
-\section{Some examples to get started}
+\section{Súvisiaca literatúra a zdroje}
+Budeme vychádzať z výskumu o technologických zmenách a trhu práce
+\cite{FreyOsborne2017,AcemogluRestrepo2018,WFoJ2023,OECD2019,ILO2024}
+a z oficiálnych zdrojov dát (Eurostat, OECD) a otvorených pracovných portálov (Adzuna API)
+\cite{AdzunaAPI,EurostatDB,OECDData}.
 
-\subsection{How to create Sections and Subsections}
+\section{Dáta a zber dát}
+\paragraph{Pracovné ponuky (Adzuna API).}
+Získame ponuky pre vybrané krajiny EÚ a obdobie 2023–2025. Pre každú ponuku sa uložia minimálne:
+názov, popis, lokácia, dátum, firma (ak je), kategória/odvetvie. Predspracovaním vytvoríme indikátor
+\texttt{is\_AI} podľa pravidiel v~\ref{sec:klasifikacia}.
 
-Simply use the section and subsection commands, as in this example document! With Overleaf, all the formatting and numbering is handled automatically according to the template you've chosen. If you're using the Visual Editor, you can also create new section and subsections via the buttons in the editor toolbar.
+\paragraph{Oficiálne štatistiky.}
+Z~Eurostatu načítame ukazovatele týkajúce sa zamestnanosti a podielu ICT špecialistov (percento na
+zamestnanosti). Z~OECD použijeme indikátory súvisiace s automatizáciou a digitalizáciou (napr. index
+rizika automatizácie podľa profesií). Konkrétne identifikátory datasetov doplníme po validácii.
 
-\subsection{How to include Figures}
+\section{Spracovanie a metodika}
+\subsection{ETL pipeline}
+\begin{enumerate}
+  \item \textbf{Extrakcia:} API dotazy (Adzuna) a sťahovanie CSV z~Eurostat/OECD.
+  \item \textbf{Transformácia:} čistenie textov, normalizácia krajín (ISO kódy), jednotné dátumy;
+        prevod JSON$\rightarrow$tabuľka; agregácie podľa krajiny a mesiaca.
+  \item \textbf{Načítanie:} ukladanie do jednotných CSV/Parquet; notebook \texttt{AI\_Trh\_Prace.ipynb}
+        sprístupňuje kroky a vizualizácie.
+\end{enumerate}
 
+\subsection{Klasifikácia AI vs. non-AI}\label{sec:klasifikacia}
+Pracovná definícia: ponuka je \emph{AI-príbuzná}, ak \emph{názov alebo popis} obsahuje výraz
+z kurátorskej množiny kľúčových slov (napr. „machine learning“, „artificial intelligence“,
+„deep learning“, „LLM“, „computer vision“, „MLOps“) alebo je v AI-príbuznej kategórii.
+Kľúčové slová budú lokalizované (EN/SK/CZ/DE) a manuálne kontrolované.
+Výstupom je binárny príznak \texttt{is\_AI}.
 
+\subsection{Metriky a hypotézy}
+\paragraph{Metriky.}
+Medzimesačná a medziročná miera rastu, podiel AI ponúk na všetkých ponukách,
+korelácia s podielom ICT špecialistov, index intenzity AI ponúk na \SI{100000}{obyv.}
+
+\paragraph{Hypotézy.}
+\begin{itemize}
+  \item H1: Podiel AI ponúk rastie v období 2023–2025 vo väčšine krajín EÚ.
+  \item H2: Krajiny s vyšším podielom ICT špecialistov vykazujú vyššiu intenzitu AI ponúk.
+  \item H3: Trendy sa líšia podľa sektorov; najvyšší rast v ICT a pokročilých výrobách.
+\end{itemize}
+
+\section{Priebežné výsledky}
+V tejto fáze máme pripravený návrh dátového pipeline (obr.~\ref{fig:pipeline})
+a pracovný notebook v Colab/Jupyteri (\texttt{AI\_Trh\_Prace.ipynb}), ktorý obsahuje
+prvé dotazy na API a načítanie ukážkových datasetov. Po dokončení zberu dát doplníme
+grafy trendov a porovnania medzi krajinami.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\linewidth]{figures/diagram_pipeline.png}
+  \caption{Návrh spracovania dát (ETL $\rightarrow$ analýza $\rightarrow$ vizualizácie).}
+  \label{fig:pipeline}
+\end{figure}
+
+\section{Harmonogram a pracovné balíky}
+\begin{table}[h]
+\centering
+\begin{tabular}{llp{7.5cm}}
+\toprule
+\textbf{Balík} & \textbf{Termín} & \textbf{Výstup} \\
+\midrule
+PB1: ETL skeleton & Týždeň 1–2 & Adzuna fetcher, Eurostat/OECD loader, jednotné CSV \\
+PB2: Klasifikácia AI & Týždeň 2–3 & Kurátorské kľúčové slová, validácia na vzorke 200 ponúk \\
+PB3: Analýza trendov & Týždeň 3–4 & AI vs. non-AI časové rady, medziročné zmeny \\
+PB4: Vizualizácie & Týždeň 4–5 & Power BI/Plotly dashboard (krajiny, mesiace, sektory) \\
+PB5: Článok \& formy & priebežne & Rozšírenie kapitol, citácie, VV-A..VV-F \& PDF \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Riziká, limity a etické aspekty}
+\textbf{Pokrytie dát:} API pracovných ponúk je skreslené (duplicitné inzeráty, selekcia portálov).
+\textbf{Definícia „AI“:} pravidlové rozpoznanie môže mať falošné pozitíva/negatíva; plánovaná
+manuálna kontrola vzorky. \textbf{Porovnateľnosť krajín:} rozdielne zvyklosti v inzerátoch
+a kategóriách. \textbf{Etika:} pracujeme s verejne dostupnými inzerátmi; osobné údaje
+sa neukladajú (anonymizácia identifikátorov).
+
+\section{Záver}
+Predstavili sme plán a priebežné výstupy pre analýzu AI na trhu práce v krajinách EÚ.
+Nasleduje finalizácia zberu dát, klasifikácie ponúk a príprava dashboardu.
+Priebežne rozširujeme prehľadový článok a dopĺňame citácie.
+
+\bibliographystyle{ieeetr}
+\bibliography{refs}
 \end{document}
