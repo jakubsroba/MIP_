@@ -1,0 +1,93 @@
+% main.tex — AITP: Umelá inteligencia a trh práce – predbežná verzia projektu
+% Tím LITTLETON (FIIT STU), 1. sem 2025/26
+
+
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[slovak]{babel}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{caption}
+\geometry{margin=2.5cm}
+\setlength{\parskip}{0.6em}
+\setlength{\parindent}{0pt}
+\graphicspath{{./img/}} % <- sem uložte všetky PNG grafy
+
+\title{LITTLETON: Analýza dopadu umelej inteligencie na trh práce v Európskej únii}
+\author{%
+Jakub Šroba \and
+Samuel Škombár \and
+Bruno Stehlík \and
+Adam Sklenčík
+}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+\textbf{Akronym projektu: LITTLETON}
+\end{center}
+\begin{abstract}
+Rozvoj umelej inteligencie (AI) vytvára nové pracovné príležitosti, zároveň však zrýchľuje
+automatizáciu rutinných činností a zmeny v štruktúre dopytu po zručnostiach. Tento dokument
+predstavuje \emph{predbežnú verziu} projektu, ktorého cieľom je zostrojiť otvorený analytický
+pipeline pre zber, čistenie a porovnávaciu analýzu dát o pracovných ponukách a štatistikách
+trhu práce v krajinách EÚ. Budeme kombinovať API ponúk práce (Adzuna) s oficiálnymi
+štatistikami (Eurostat, OECD) a vizualizovať trendy rozvoja AI-profesií, podielu ICT
+špecialistov a indikátorov automatizácie. Výstupom bude interaktívny dataset a grafy
+(Power BI/Plotly) vhodné pre študentov, výskumníkov a tvorcov politík.
+\end{abstract}
+\section*{Grafy}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{automation_risk_HIGH_share_by_industry.png}
+  \caption{Podiel ponúk s vysokým automatizačným rizikom (HIGH) podľa odvetvia.}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{eu_latest_top10.png}
+  \caption{Top 10 krajín EÚ podľa najnovšieho podielu AI pracovných ponúk.}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{eu_leaders_trends.png}
+  \caption{Trend: Top krajiny EÚ podľa najnovšej hodnoty podielu AI pracovných ponúk.}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{eu_mean_timeseries.png}
+  \caption{Podiel AI pracovných ponúk v EÚ (priemer krajín) v čase.}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{eu_mean_timeseries_explained.png}
+  \caption{Podiel AI pracovných ponúk v EÚ (priemer krajín) — s vyznačenými udalosťami a dôvodmi zmien trendu.}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{eu_vs_noneu_timeseries.png}
+  \caption{EÚ-27 vs.\ Non-EU — porovnanie podielu AI pracovných ponúk v čase.}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{industry_weighted_automation_risk_rank.png}
+  \caption{Riziko automatizácie podľa odvetvia (vážené: High + $0{.}5 \cdot$ Medium).}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{skills_weighted_risk_rank.png}
+  \caption{Riziko automatizácie podľa skillu (vážené: High + $0{.}5 \cdot$ Medium).}
+\end{figure}
+
+\end{document}
