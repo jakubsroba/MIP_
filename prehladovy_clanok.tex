@@ -1,0 +1,127 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[slovak]{babel}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\geometry{margin=2.5cm}
+\setlength{\parskip}{0.6em}
+\setlength{\parindent}{0pt}
+\graphicspath{{./img/}} % <- sem uložte všetky PNG grafy
+
+
+\title{Analýza dopadu umelej inteligencie na trh práce v Európskej únii\thanks{Semestrálny projekt v predmete Metódy inžinierskej práce, ak. rok 2025/2026, vedenie: Ing. Richard Marko, PhD.}} % meno a priezvisko vyučujúceho na cvičeniach
+
+\author{%
+Jakub Šroba\textsuperscript{1} \and
+Samuel Škombár\textsuperscript{1} \and
+Bruno Stehlík\textsuperscript{1} \and
+Adam Sklenčík\textsuperscript{1}
+\vspace{8pt} \\ % Medzera pred inštitúciou
+\textsuperscript{1}{\small Slovenská technická univerzita v Bratislave}\\
+{\small Fakulta informatiky a informačných technológií}\\
+{\small \texttt{\{xsroba, xskombarm, xstehlik, xsklencik\}@stuba.sk}} % Použitie spoločného email formátu
+}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+\textbf{Akronym projektu: LITTLETON}
+\end{center}
+
+\begin{abstract}
+Rozvoj umelej inteligencie (AI) vytvára nové pracovné príležitosti, zároveň však zrýchľuje
+automatizáciu rutinných činností a zmeny v štruktúre dopytu po zručnostiach. Tento dokument
+predstavuje \emph{predbežnú verziu} projektu, ktorého cieľom je zostrojiť otvorený analytický
+pipeline pre zber, čistenie a porovnávaciu analýzu dát o pracovných ponukách a štatistikách
+trhu práce v krajinách EÚ. Budeme kombinovať API ponúk práce (Adzuna) s oficiálnymi
+štatistikami (Eurostat, OECD) a vizualizovať trendy rozvoja AI-profesií, podielu ICT
+špecialistov a indikátorov automatizácie. Výstupom bude interaktívny dataset a grafy
+(Power BI/Plotly) vhodné pre študentov, výskumníkov a tvorcov politík.
+\end{abstract}
+
+\section{Úvod}
+
+Umelá inteligencia (neskôr AI) patrí medzi najvýznamnejšie technologické inovácie súčasnosti.
+Jej vývoj sa zrýchľuje a čoraz viac preniká do rôznych oblastí života – od priemyslu až po školstvo.
+Vďaka schopnosti spracúvať veľké množstvo dát a samostatne sa rozhodovať mení spôsob, ako pracujeme.
+Naším cieľom je analyzovať dostupné dáta a následne ich vizualizovať.
+Taktiež chceme zvýšiť povedomie bežnej populácie o štatistikách týkajúcich sa AI
+a motivovať ich k tomu, aby sa učili moderným technológiám.
+
+\section{Metodika}
+
+Analýza bola založená na zostavení dátového súboru obsahujúceho celkový počet pracovných miest,
+počet pozícií súvisiacich s umelou inteligenciou a ich podiel na zamestnanosti pre jednotlivé krajiny a roky.
+Dáta pre dátový súbor sme použili z viacerých zdrojov ako: \cite{kaggle-ai-impact-2024-2030, opendatabay-aiml, hiringlab-ai-tracker}.
+Následne boli pracovné pozície rozdelené do kategórií podľa typu činnosti – AI roly a bežné roly,
+pričom bežné pozície boli ďalej členené na administratívne, logistické a výrobné.
+Po klasifikácii sa uskutočnila agregácia údajov podľa počtu pozícií súvisiacich s umelou inteligenciou,
+čím sa získali hodnoty pre jednotlivé sektory.
+
+Tieto údaje boli následne spojené s makroekonomickými dátami,
+najmä s ukazovateľmi podielu ICT špecialistov,
+aby bolo možné skúmať vzťahy medzi rozvojom AI a úrovňou digitalizácie pracovnej sily.
+
+\section{Dopad AI na pracovné miesta}
+
+Z našich doterajších zistení vyplýva, že dopyt po AI stále rastie
+a nové pracovné ponuky pribúdajú, čo môžete vidieť vizualizované v nasledujúcich grafoch.
+
+\begin{center}
+    \includegraphics[width=\linewidth]{eu_latest_top10.png}
+\end{center}
+
+\begin{center}
+    \includegraphics[width=\linewidth]{eu_leaders_trends.png}
+\end{center}
+
+Dáta boli porovnané aj pre krajiny EÚ a mimo EÚ.
+Na základe týchto dát vieme povedať, že krajiny v EÚ majú mierne väčší podiel AI ponúk
+ako krajiny, ktoré v EÚ nie sú.
+\cite{ilo}Tento trend podporuje štúdia ILO, ktorá porovnáva krajiny G20 a tie, ktoré v G20 nie sú.
+Na základe dát vieme povedať, že bohatšie krajiny majú výrazne viac ponúk zameraných na AI.
+
+\begin{center}
+    \includegraphics[width=\linewidth]{eu_vs_noneu_timeseries.png}
+\end{center}
+
+\section{Čo je v dnešnej dobe dôležité?}
+
+Štúdia ILO zdôrazňuje, že kľúčovým faktorom úspešného prispôsobenia sa novým technológiám
+sú zručnosti pracovníkov.
+Najviac sa uplatňujú kombinácie digitálnych, kognitívnych a sociálno-emocionálnych schopností,
+ako je tímová spolupráca, komunikácia či riešenie problémov.
+Taktiež zvýrazňuje potrebu rozvíjať \emph{soft skills},
+ktoré umožňujú efektívne pracovať, využívať technológie,
+prispôsobovať sa zmenám a kreatívne riešiť úlohy.
+
+\section{Ďalšie Grafy}
+
+\begin{center}
+    \includegraphics[width=\linewidth]{automation_risk_HIGH_share_by_industry.png}
+\end{center}
+
+\begin{center}
+    \includegraphics[width=\linewidth]{industry_weighted_automation_risk_rank.png}
+\end{center}
+
+\begin{center}
+    \includegraphics[width=\linewidth]{skills_weighted_risk_rank.png}
+\end{center}
+
+\section{Diskusia}
+V buducnosti sa projekt zameria na zber dát o pracovných ponukách a trendoch AI, napríklad LinkedIn, Github, Eurostat a Udemy \cite{linkedin-api, github-api, eurostat-api, udemy-api}.
+Každé API poskytuje čiastočne odlišné údaje, čo umožňuje porovnanie a overenie kvality dát.
+Dáta sa dajú normalizovať a spojiť do jednotného datasetu, čím vznikne komplexnejší obraz trhu práce.
+Modulárna štruktúra pipeline umožňuje pridávať nové API bez zásadných zmien v analýze.
+Takéto prepojenie viacerých zdrojov zvyšuje presnosť predikcií a podporuje lepšie rozhodovanie o rozvoji zručností pracovníkov.
+
+
+\bibliographystyle{plain}
+\bibliography{sources}
+\end{document}
